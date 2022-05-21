@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DictionaryInCsharp
@@ -26,30 +25,20 @@ namespace DictionaryInCsharp
         [TestMethod]
         public void GivenEmptyDictionary_WhenAddingToDictionary_ThenReturnsPopulatedDictionary()
         {
-            Dictionary<int, Product> emptyDict = new Dictionary<int, Product>();
+            Dictionary<int, Product> productsDict = new Dictionary<int, Product>();
 
-            var result = Program.AddToDictionary(emptyDict);
+            var result = Program.AddToDictionary(productsDict);
 
             Assert.IsTrue(result.Count > 0);
             Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
         }
 
         [TestMethod]
-        public void GivenExistingKey_WhenAddingToDictionary_ThenRaisesArgumentExceptionWithMessage()
+        public void GivenNewKey_WhenAddingToDictionary_ThenAddsElementToDictionary()
         {
             Dictionary<int, Product> productsDict = new Dictionary<int, Product>();
 
-            var exception = Assert.ThrowsException<ArgumentException>(() => Program.AddToDictionary(productsDict));
-
-            Assert.AreEqual("An item with the same key has already been added. Key: 2", exception.Message);
-        }
-
-        [TestMethod]
-        public void GivenNewKey_WhenAddingToDictionary_ThenAddsElementToDictionary()
-        {
-            Dictionary<int, Product> emptyDict = new Dictionary<int, Product>();
-
-            var result = Program.AddToDictionary(emptyDict);
+            var result = Program.AddToDictionary(productsDict);
 
             Assert.IsTrue(result.Count == 4);
             Assert.AreEqual(result[3].ProductId, 114);
@@ -61,8 +50,8 @@ namespace DictionaryInCsharp
         {
             var result = Program.RetrieveDictionaryElements(productsDict);
 
-            Assert.AreEqual(result.ProductId, 113 );
-            Assert.AreEqual(result.ProductName, "TV" );
+            Assert.AreEqual(result.ProductId, 113);
+            Assert.AreEqual(result.ProductName, "TV");
         }
 
         [TestMethod]

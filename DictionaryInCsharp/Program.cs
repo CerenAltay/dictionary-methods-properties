@@ -31,15 +31,13 @@ namespace DictionaryInCsharp
             {
                 Console.WriteLine($"Product is added.");
             }
-
             return productsDict;
         }
-
 
         public static Product RetrieveDictionaryElements(Dictionary<int, Product> productsDict)
         {
             Console.WriteLine();
-            foreach(KeyValuePair<int, Product> product in productsDict)
+            foreach (KeyValuePair<int, Product> product in productsDict)
             {
                 Console.WriteLine($"Key = {product.Key}, Value = {product.Value.ProductId}, {product.Value.ProductName}");
             }
