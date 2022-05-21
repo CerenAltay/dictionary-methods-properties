@@ -27,58 +27,61 @@ namespace DictionaryInCsharp
         public void GivenEmptyDictionary_WhenAddingToDictionary_ThenReturnsPopulatedDictionary()
         {
             Dictionary<int, Product> emptyDict = new Dictionary<int, Product>();
-            int existingKey = 3;
-            int newKey = 3;
 
-            var result = Program.AddToDictionary(emptyDict, existingKey, newKey);
+            var result = Program.AddToDictionary(emptyDict);
 
             Assert.IsTrue(result.Count > 0);
             Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
         }
 
         [TestMethod]
-        public void GivenExistingKey_WhenAddingToDictionary_ThenThrowsArgumentException()
+        public void GivenExistingKey_WhenAddingToDictionary_ThenRaisesArgumentExceptionWithMessage()
         {
-            int existingKey = 2;
-            int newKey = 3;
+            Dictionary<int, Product> productsDict = new Dictionary<int, Product>();
 
-            var result = Program.AddToDictionary(productsDict, existingKey, newKey);
+            var exception = Assert.ThrowsException<ArgumentException>(() => Program.AddToDictionary(productsDict));
 
-            Assert.IsTrue(result.Count > 0);
-            Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
+            Assert.AreEqual("An item with the same key has already been added. Key: 2", exception.Message);
         }
 
         [TestMethod]
-        public void GivenDictionaryWithData_WhenRetrievingElements_ThenReturnsElements()
+        public void GivenNewKey_WhenAddingToDictionary_ThenAddsElementToDictionary()
         {
+            Dictionary<int, Product> emptyDict = new Dictionary<int, Product>();
 
+            var result = Program.AddToDictionary(emptyDict);
+
+            Assert.IsTrue(result.Count == 4);
+            Assert.AreEqual(result[3].ProductId, 114);
+            Assert.AreEqual(result[3].ProductName, "Lamp");
+        }
+
+        [TestMethod]
+        public void GivenDictionaryWithData_WhenRetrievingAnExistingKey_ThenGetsTheValue()
+        {
             var result = Program.RetrieveDictionaryElements(productsDict);
 
-            Assert.IsTrue(result.Count > 0);
-            Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
+            Assert.AreEqual(result.ProductId, 113 );
+            Assert.AreEqual(result.ProductName, "TV" );
         }
 
         [TestMethod]
-        public void GivenDictionaryWithData_WhenUpdatingDictionary_ThenReturnsUpdatedElements()
+        public void GivenDictionaryWithData_WhenUpdatingDictionary_ThenReturnsUpdatedDictionary()
         {
-
             var result = Program.UpdateDictionary(productsDict);
 
-            Assert.IsTrue(result.Count > 0);
-            Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
+            Assert.AreEqual(result[0].ProductId, 110);
+            Assert.AreEqual(result[0].ProductName, "Desk");
         }
-
 
         [TestMethod]
-        public void GivenDictionaryWithData_WhenDeletingElements_ThenReturnsRemovesElements()
+        public void GivenDictionaryWithData_WhenDeletingElement_ThenRemovesElement()
         {
-
             var result = Program.DeleteDictionaryElements(productsDict);
 
-            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Count == 2);
             Assert.IsInstanceOfType(result, typeof(Dictionary<int, Product>));
         }
-
 
         [TestMethod]
         public void GivenDictionaryWithData_WhenClearingDictionary_ThenReturnsZeroNumberOfElements()

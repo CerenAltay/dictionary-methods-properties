@@ -12,60 +12,42 @@ namespace DictionaryInCsharp
             return productsDict;
         }
 
-        public static Dictionary<int, Product> AddToDictionary(Dictionary<int, Product> productsDict, int existingKey, int newKey)
+        public static Dictionary<int, Product> AddToDictionary(Dictionary<int, Product> productsDict)
         {
             productsDict.Add(0, new Product() { ProductId = 111, ProductName = "Table" });
             productsDict.Add(1, new Product() { ProductId = 112, ProductName = "Chair" });
             productsDict.Add(2, new Product() { ProductId = 113, ProductName = "TV" });
 
-            //existingKey = 2;
-
-            //int key = 2;
-
             try
             {
-                productsDict.Add(existingKey, new Product() { ProductId = 113, ProductName = "Wardrobe" });
+                productsDict.Add(2, new Product() { ProductId = 113, ProductName = "Wardrobe" });
             }
-
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message, Environment.NewLine);
+                Console.WriteLine(ex.Message);
             }
 
-            //newKey = 3;
-
-            if (productsDict.TryAdd(newKey, new Product() { ProductId = 114, ProductName = "Lamp" }))
+            if (productsDict.TryAdd(3, new Product() { ProductId = 114, ProductName = "Lamp" }))
             {
-                Console.WriteLine($"Product Key = {newKey} added.");
+                Console.WriteLine($"Product is added.");
             }
 
             return productsDict;
         }
 
-        public static Dictionary<int, Product> RetrieveDictionaryElements(Dictionary<int, Product> productsDict)
+
+        public static Product RetrieveDictionaryElements(Dictionary<int, Product> productsDict)
         {
-            foreach (KeyValuePair<int, Product> product in productsDict)
+            Console.WriteLine();
+            foreach(KeyValuePair<int, Product> product in productsDict)
             {
                 Console.WriteLine($"Key = {product.Key}, Value = {product.Value.ProductId}, {product.Value.ProductName}");
             }
+            Console.WriteLine();
 
-            int dictKey = 1;
+            var prod = (productsDict.GetValueOrDefault(2));
 
-            //if (productsDict.ContainsKey(dictKey))
-            //{
-            //    Console.WriteLine($"Key = {dictKey} exists, Value = {productsDict[dictKey].ProductId}, {productsDict[dictKey].ProductName}");
-            //}
-
-            //use get value or default extension method
-            if (productsDict.TryGetValue(dictKey, out Product product1))
-            {
-                string value = $"Key = {dictKey} exists, Value = {product1.ProductId}, {product1.ProductName}";
-                Console.WriteLine(value);
-            }
-
-            var prod = (productsDict.GetValueOrDefault(5));
-
-            return productsDict;
+            return prod;
         }
 
         public static Dictionary<int, Product> UpdateDictionary(Dictionary<int, Product> productsDict)
@@ -82,7 +64,7 @@ namespace DictionaryInCsharp
 
         public static Dictionary<int, Product> DeleteDictionaryElements(Dictionary<int, Product> productsDict)
         {
-            productsDict.Remove(3);
+            productsDict.Remove(2);
 
             foreach (KeyValuePair<int, Product> product in productsDict)
             {
@@ -122,7 +104,7 @@ namespace DictionaryInCsharp
 
             Dictionary<int, Product> productsDict = CreateDictionary();
 
-            AddToDictionary(productsDict, 2, 3);
+            AddToDictionary(productsDict);
 
             Console.WriteLine();
 
