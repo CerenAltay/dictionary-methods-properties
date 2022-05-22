@@ -50,8 +50,8 @@ namespace DictionaryInCsharp
         {
             var result = Program.RetrieveDictionaryElements(productsDict);
 
-            Assert.AreEqual(result.ProductId, 113);
-            Assert.AreEqual(result.ProductName, "TV");
+            Assert.AreEqual(result.ProductId, 112);
+            Assert.AreEqual(result.ProductName, "Chair");
         }
 
         [TestMethod]

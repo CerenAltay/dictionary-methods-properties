@@ -43,9 +43,19 @@ namespace DictionaryInCsharp
             }
             Console.WriteLine();
 
-            var prod = (productsDict.GetValueOrDefault(2));
+            if (productsDict.TryGetValue(2, out Product product1))
+            {
+                Console.WriteLine($"Key = {2} exists, Value = {product1.ProductId}, {product1.ProductName}");
+            }
 
-            return prod;
+            var productValue = (productsDict.GetValueOrDefault(1));
+
+            if (productValue != null)
+            {
+                Console.WriteLine($"Key = {1} exists, Value = {productValue.ProductId}, {productValue.ProductName}");
+            }
+
+            return productValue;
         }
 
         public static Dictionary<int, Product> UpdateDictionary(Dictionary<int, Product> productsDict)
@@ -99,6 +109,9 @@ namespace DictionaryInCsharp
                 {2, "Yellow"},
                 {3, "Green"},
             };
+
+            var color = (dict3.GetValueOrDefault(4, "Color not found."));
+            Console.WriteLine(color);
 
             Dictionary<int, Product> productsDict = CreateDictionary();
 
